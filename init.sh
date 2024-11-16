@@ -1,3 +1,7 @@
+echo "#!/bin/sh
+java ./PrePushHook.java" > .git/hooks/pre-push
+
+echo "
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,3 +32,4 @@ public class PrePushHook {
         System.exit(0);
     }
 }
+" > .git/hooks/PrePushHook.java
