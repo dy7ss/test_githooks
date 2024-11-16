@@ -1,9 +1,7 @@
 #!/bin/sh
 
-echo "#!/bin/sh
-java ./PrePushHook.java" > .git/hooks/pre-push && chmod +x .git/hooks/pre-push
 
-echo "
+JAVA_INTERCEPT_SCRIPT=$(cat << 'EOF'
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,4 +32,23 @@ public class PrePushHook {
         System.exit(0);
     }
 }
-" > .git/hooks/PrePushHook.java && chmod +x .git/hooks/PrePushHook.java
+EOF
+)
+
+
+create_pre_push() {
+    echo "#!/bin/sh
+java ./PrePushHook.java" >.git/hooks/pre-push && chmod +x .git/hooks/pre-push
+}
+
+create_pre_push_java() {
+    FILE_PATH=".git/hooks/PrePushHook.java"
+echo "$JAVA_INTERCEPT_SCRIPT" > $FILE_PATH && chmod +x $FILE_PATH
+}
+
+main() {
+    create_pre_push
+    create_pre_push_java
+}
+
+main
