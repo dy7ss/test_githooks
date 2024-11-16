@@ -1,5 +1,7 @@
+#!/bin/sh
+
 echo "#!/bin/sh
-java ./PrePushHook.java" > .git/hooks/pre-push
+java ./PrePushHook.java" > .git/hooks/pre-push && chmod +x .git/hooks/pre-push
 
 echo "
 import java.io.BufferedReader;
@@ -32,4 +34,4 @@ public class PrePushHook {
         System.exit(0);
     }
 }
-" > .git/hooks/PrePushHook.java
+" > .git/hooks/PrePushHook.java && chmod +x .git/hooks/PrePushHook.java
