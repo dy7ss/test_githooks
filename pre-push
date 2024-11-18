@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 readonly PROTECTED_BRANCHES="(master|main|develop)"
 
