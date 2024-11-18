@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
 readonly PROTECTED_BRANCHES="(master|main|develop)"
 
 while read local_ref local_oid remote_ref remote_oid
 do
-    BRANCH_NAME="${remote_ref/refs\/heads\//}"
+    BRANCH_NAME=$(echo "$remote_ref" | sed 's;^refs/heads/;;')
     echo "BRANCH_NAME=${BRANCH_NAME}, remote_ref=${remote_ref}"
-    if [[ "$BRANCH_NAME" =~ $PROTECTED_BRANCHES ]]; then
+    if echo "$BRANCH_NAME" | grep -Eq "$PROTECTED_BRANCHES"; then
         echo "Error: pushing to '$BRANCH_NAME'  branch is not allowed."
         exit 1
     fi
